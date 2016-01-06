@@ -30,15 +30,13 @@ articleView.handleAuthorFilter = function() {
   $('#author-filter').on('change', function() {
     if ($(this).val()) {
 
-      var authorToBeShown = $(this).val();
-      console.log(authorToBeShown);
+      var author = $(this).val();
+      console.log(author);
 
       $('article').hide();
-    }
+      $('article').filter("[data-authors='"+author+"']").fadeIn(700);
 
-      // $('#author-filter').on('select', function() {
-      //   $('article').fadeIn();
-      // }
+
 
 
 
