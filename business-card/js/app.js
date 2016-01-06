@@ -33,14 +33,48 @@ Article.prototype.toHtml = function() {
   return $newArticle;
 }
 
-rawData.sort(function(a,b) {
+content.sort(function(a,b) {
   return (new Date(b.publishedOn)) - (new Date(a.publishedOn));
 });
 
-rawData.forEach(function(ele) {
+content.forEach(function(ele) {
   articles.push(new Article(ele));
 })
 
 articles.forEach(function(a){
   $('#articles').append(a.toHtml())
+});
+
+var articleView = {};
+
+
+articleView.handleArticleDisplay = function() {
+  $('#contentSelect').on('change', function() {
+    if ($(this).val()) {
+
+      var author = $(this).val();
+      console.log(author);
+
+      $('article').hide();
+      $('article').filter("[data-authors='"+author+"']").fadeIn(700);
+
+
+    $('#category-filter').val('');
+  }})
+};
+
+articleView.handleMainNav = function() {
+    $('main-nav').on('click', function() {
+      $('.tab-content').hide();
+     $('.main-nav .tab:first').click(); {
+    $('.tab:first' + $('article').data('content')).fadeIn()
+   }
+})
+};
+
+
+
+$(document).ready(function(){
+  articleView.handleArticleDisplay();
+  articleView.handleMainNav();
 });
