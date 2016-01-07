@@ -47,34 +47,48 @@ articles.forEach(function(a){
 
 var articleView = {};
 
+articleView.populateFilters = function() {
+  $('article').each(function() {
+    if (!$(this).hasClass('template')) {
+      var val = $(this).find('.author-name').text();
+      var optionTag = '<option value="' + val + '">' + val + '</option>';
+      $('#contentSelect').append(optionTag);
+
+      val = $(this).attr('data-category');
+      optionTag = '<option value="' + val + '">' + val + '</option>';
+      if ($('#category-filter option[value="' + val + '"]').length === 0) {
+        $('#category-filter').append(optionTag);
+      }
+    }
+  });
+};
+
 
 articleView.handleArticleDisplay = function() {
   $('#contentSelect').on('change', function() {
     if ($(this).val()) {
-
-      var author = $(this).val();
-      console.log(author);
-
       $('article').hide();
-      $('article').filter("[data-authors='"+author+"']").fadeIn(700);
-
-
+      $('article[data-author="' + $(this).val() + '"]').fadeIn();
+    } else {
+      $('article').fadeIn();
+      $('article.template').hide();
+    }
     $('#category-filter').val('');
-  }})
+  });
 };
 
 articleView.handleMainNav = function() {
-    $('main-nav').on('click', function() {
-      $('.tab-content').hide();
-     $('.main-nav .tab:first').click(); {
-    $('.tab:first' + $('article').data('content')).fadeIn()
-   }
-})
-};
+    $('main-nav').on('click', '.tab', function(event) {
+      event.preventDefault();
+      $(this).parent().find('*').fadeIn();
+      $(this).hide();
+    });
+  };
 
 
 
 $(document).ready(function(){
   articleView.handleArticleDisplay();
   articleView.handleMainNav();
+  articleView.populateFilters();
 });
