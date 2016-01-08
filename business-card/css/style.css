@@ -1,0 +1,22 @@
+body {
+  display:flex;
+}
+
+.header {
+  background-color: #CCC0AB;
+  color: black;
+}
+
+footer {
+  background-color: #FFB129;
+}
+
+ul {
+  text-decoration: none;
+  list-style: none;
+  color: black;
+}
+
+h2 {
+  color: black;
+}
