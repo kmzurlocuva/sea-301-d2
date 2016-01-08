@@ -3,7 +3,15 @@ var articleView = {};
 
 articleView.initNewArticlePage = function() {
     // Show the HTML form
+    $('.tab-content').show();
 
+    $('#export-field').hide();
+
+    $('#article-json').on('focus', function() {
+      this.select();
+    });
+
+    $('#new-form').on('change', 'input, textarea', articleView.create);
     // Hide export field (but show it later when article content exists)
 
     // Add event handlers
@@ -12,6 +20,26 @@ articleView.initNewArticlePage = function() {
 };
 
 articleView.create = function() {
+    var article;
+    $('#articles').empty();
+
+    article = new Article({
+      title: $('#article-title').val(),
+      author: $('#article-author').val(),
+      authorURL: $('#article-author-url').val(),
+      category: $('#article-category').val(),
+      body: $('#article-body').val(),
+      publishedOn: $('#article.published:checked').length ? util.today() : null
+    });
+
+    $('#articles').append(article.toHtml());
+
+    $('pre code').each(function(i, block) {
+      hljs.highlightBlock(block);
+    });
+
+    $('#export-field').show();
+    $('#article-json').val(JSON.stringify(article) + ',');
     // Remove existing article draft
 
     // Instantiate an article using data the user entered in the form fields
