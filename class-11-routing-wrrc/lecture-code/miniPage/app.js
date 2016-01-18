@@ -2,7 +2,7 @@
 // notfound). Here we have no catch-all, so page.js will redirect to
 // the location of paths which do not match any of the following
 // routes
-page.base('');
+page.base('/');
 
 page('/', index);
 page('/about', about);
